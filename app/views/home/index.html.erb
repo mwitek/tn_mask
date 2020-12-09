@@ -2,7 +2,7 @@
 Provisioned numbers:
   <ul>
   <% TrialNumber.find_each do |trial_number| %>
-    <li>Calls made to <%= trial_number.mask_number %> will forward to <%= trial_number.forward_to_number %> <%= link_to 'Release this number', release_number_url(trial_id: trial_number.id), method: 'delete' %></li>
+    <li>Calls made to <%= trial_number.mask_number %> will forward to <%= trial_number.forward_to_number %> <br> <%= link_to 'Release this number', release_number_url(trial_id: trial_number.id), method: 'delete' %></li>
   <% end %>
   </ul>
 <% end %>
@@ -10,7 +10,7 @@ Provisioned numbers:
   This is a demo and we can only register one number. You need to release the number above before creating a new one.
 <% else %>
   <%= form_with(url: "/provision_number", method: "post") do %>
-    <%= label_tag(:forward_to, "Number to forward calls to format as follows: +15865551212") %>
+    <%= label_tag(:forward_to, "Add your cell Number to the input below. Must be in the following format: +15865551212") %>
     <br>
     <%= text_field_tag(:forward_to, nil, placeholder: "+15865551212") %>
     <%= submit_tag("Create new phone number") %>
