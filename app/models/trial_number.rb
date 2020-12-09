@@ -1,0 +1,2 @@
+class TrialNumber < ApplicationRecord
+end
