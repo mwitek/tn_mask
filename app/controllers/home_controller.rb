@@ -4,8 +4,9 @@ class HomeController < ApplicationController
   end
 
   def make_call
+    trial_number = TrialNumber.find_by(mask_number: params[:Called])
     response = Twilio::TwiML::VoiceResponse.new
-    response.dial(number: '+15863290488')
+    response.dial(number: trial_number&.forward_to_number)
     render xml: response.to_s
   end
 
