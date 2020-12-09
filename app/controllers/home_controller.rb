@@ -10,8 +10,12 @@ class HomeController < ApplicationController
   end
 
   def create
-    provision_phone_number
-    flash[:notice] = "Number provisioned, your number is #{@number}"
+    if params[:forward_to].present?
+      provision_phone_number
+      flash[:notice] = "Number provisioned, your number is #{@number}"
+    else
+      flash[:notice] = "You must provide a phone number"
+    end
     redirect_to root_url
   end
 
@@ -25,6 +29,7 @@ class HomeController < ApplicationController
   end
 
   def provision_phone_number
+
     @client = Twilio::REST::Client.new(ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN'])
     begin
       # Lookup numbers in host area code, if none than lookup from anywhere
